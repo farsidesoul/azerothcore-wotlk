@@ -2551,7 +2551,7 @@ class Player : public Unit, public GridObject<Player>
         }
 
 		// Custom XP rate accessors
-		void setCustomXPRate(uint32 rate) { m_customExpRate = rate; }
+		void SetCustomXPRate(uint32 rate) { m_customExpRate = rate; }
 		uint32 GetCustomXPRate() const { return m_customExpRate; }
 
         // OURS
