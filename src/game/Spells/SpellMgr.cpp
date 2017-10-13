@@ -132,6 +132,9 @@ DiminishingGroup GetDiminishingReturnsGroupForSpell(SpellInfo const* spellproto,
             // Faerie Fire
             else if (spellproto->SpellFamilyFlags[0] & 0x400)
                 return DIMINISHING_LIMITONLY;
+            // Feral Charge Root Effect
+            else if (spellproto->Id == 45334)
+                return DIMINISHING_NONE;
             break;
         }
         case SPELLFAMILY_ROGUE:
@@ -5000,7 +5003,7 @@ void SpellMgr::LoadDbcDataCorrections()
             spellInfo->EffectRadiusIndex[1] = 12;
             spellInfo->EffectImplicitTargetA[2] = TARGET_SRC_CASTER;
             spellInfo->EffectImplicitTargetB[2] = TARGET_UNIT_SRC_AREA_ENTRY;
-            spellInfo->EffectRadiusIndex[3] = 12;
+            spellInfo->EffectRadiusIndex[2] = 12;
             break;
         // Trial of the Champion, Desecration
         case 67778:

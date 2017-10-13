@@ -289,7 +289,6 @@ inline void Battleground::_CheckSafePositions(uint32 diff)
         m_ValidStartPositionTimer = 0;
 
         Position pos;
-        Player* player;
         float x, y, z, o;
         for (BattlegroundPlayerMap::const_iterator itr = GetPlayers().begin(); itr != GetPlayers().end(); ++itr)
         {
@@ -721,7 +720,7 @@ void Battleground::EndBattleground(TeamId winnerTeamId)
     // set as fast as possible
     if (GetStatus() == STATUS_WAIT_LEAVE)
         return;
-    uint32 startDelay = StartDelayTimes[BG_STARTING_EVENT_FIRST]; // = BG_START_DELAY_1M = 60000 for all arenas
+    uint32 startDelay = GetStartDelayTime();
     bool bValidArena = isArena() && isRated() && GetStatus() == STATUS_IN_PROGRESS && GetStartTime() >= startDelay+15000; // pussywizard: only if arena lasted at least 15 secs
     SetStatus(STATUS_WAIT_LEAVE);
 

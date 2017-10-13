@@ -87,9 +87,8 @@ bool Weather::ReGenerate()
     ACE_OS::localtime_r(&gtime, &ltime);
     uint32 season = ((ltime.tm_yday - 78 + 365)/91)%4;
 
-    static char const* seasonName[WEATHER_SEASONS] = { "spring", "summer", "fall", "winter" };
-
 #if defined(ENABLE_EXTRAS) && defined(ENABLE_EXTRA_LOGS)
+    static char const* seasonName[WEATHER_SEASONS] = { "spring", "summer", "fall", "winter" };
     sLog->outDetail("Generating a change in %s weather for zone %u.", seasonName[season], m_zone);
 #endif
 
@@ -183,7 +182,7 @@ bool Weather::ReGenerate()
     return m_type != old_type || m_grade != old_grade;
 }
 
-void Weather::SendWeatherUpdateToPlayer(Player* player)
+void Weather::SendWeatherUpdateToPlayer(Player*  /*player*/)
 {
     WorldPacket data(SMSG_WEATHER, (4 + 4 + 1));
     data << uint32(GetWeatherState());
