@@ -444,6 +444,40 @@ void World::LoadConfigSettings(bool reload)
     ///- Send server info on login?
     m_int_configs[CONFIG_ENABLE_SINFO_LOGIN] = sConfigMgr->GetIntDefault("Server.LoginInfo", 0);
 
+	// Custom Exp Rate
+	m_bool_configs[CONFIG_CUSTOM_XP_RATE] = sConfigMgr->GetIntDefault("CustomRates.Exp.Enabled", false);
+
+	// Individual XP rates
+	int sec = sConfigMgr->GetIntDefault("CustomRates.Exp.Security", 0);
+
+	if (sec < SEC_PLAYER || sec > SEC_ADMINISTRATOR) 
+	{
+		sLog->outError("CustomRates.Exp.Security has invalid security `%i`, must be between `%i` and `%i`, defaulting to 0...", sec, SEC_PLAYER, SEC_ADMINISTRATOR);
+		m_int_configs[CONFIG_CUSTOM_XP_RATE_SECURITY] = 0;
+	} 
+	else
+		m_int_configs[CONFIG_CUSTOM_XP_RATE_SECURITY] = sec;
+
+	int maxXPRate = sConfigMgr->GetIntDefault("CustomRates.Exp.MaxRate", 1);
+	if (maxXPRate < 1) {
+		sLog->outError("CustomRates.Exp.MaxRate has too low valie `%i`, defaulting to 1...", maxXPRate);
+		m_int_configs[CONFIG_CUSTOM_XP_RATE_MAX] = 1;
+	}
+	else
+		m_int_configs[CONFIG_CUSTOM_XP_RATE_MAX] = maxXPRate;
+
+	int defaultXpRate = sConfigMgr->GetIntDefault("CustomRates.Exp.DefaultRate", 1);
+
+	if (defaultXpRate < 1 || defaultXpRate > maxXPRate)
+	{
+		sLog->outError("CustomRates.Exp.DefaultRate has an invalid value `%i`, defaulting to 1...", defaultXpRate);
+		m_int_configs[CONFIG_CUSTOM_XP_RATE_DEFAULT] = 1;
+	}
+	else
+		m_int_configs[CONFIG_CUSTOM_XP_RATE_DEFAULT] = defaultXpRate;
+
+	m_bool_configs[CONFIG_CUSTOM_XP_RATE_SHOW_ON_LOGIN] = sConfigMgr->GetBoolDefault("CustomRates.Exp.ShowOnLogin", true);
+
     ///- Read all rates from the config file
     rate_values[RATE_HEALTH]      = sConfigMgr->GetFloatDefault("Rate.Health", 1);
     if (rate_values[RATE_HEALTH] < 0)

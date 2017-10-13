@@ -572,6 +572,9 @@ void AddSC_outdoorpvp_gh();
 void AddSC_chat_log();
 void AddSC_character_creation();
 
+// Custom rates
+void AddSC_Custom_Rates();
+
 #endif
 
 void AddSpellScripts()
@@ -1166,6 +1169,13 @@ void AddOutdoorPvPScripts()
     AddSC_outdoorpvp_tf();
     AddSC_outdoorpvp_zm();
     AddSC_outdoorpvp_gh();
+#endif
+}
+
+void AddCustomScripts()
+{
+#ifdef SCRIPTS
+	AddSC_Custom_Rates();
 #endif
 }
 

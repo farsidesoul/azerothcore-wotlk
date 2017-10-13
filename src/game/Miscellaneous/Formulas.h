@@ -173,7 +173,10 @@ namespace Trinity
                     // xpMod *= creature->GetCreatureTemplate()->ModExperience;
                 }
 
-                xpMod *= isBattleGround ? sWorld->getRate(RATE_XP_BG_KILL) : sWorld->getRate(RATE_XP_KILL);
+				if (sWorld->getBoolConfig(CONFIG_CUSTOM_XP_RATE))
+					xpMod *= isBattleGround ? sWorld->getRate(RATE_XP_BG_KILL) * player->GetCustomXPRate() : sWorld->getRate(RATE_XP_KILL) * player->GetCustomXPRate();
+				else
+					xpMod *= isBattleGround ? sWorld->getRate(RATE_XP_BG_KILL) : sWorld->getRate(RATE_XP_KILL);
                 gain = uint32(gain * xpMod);
             }
 

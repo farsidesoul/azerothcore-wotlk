@@ -908,6 +908,9 @@ Player::Player(WorldSession* session): Unit(true), m_mover(this)
     m_achievementMgr = new AchievementMgr(this);
     m_reputationMgr = new ReputationMgr(this);
 
+	// Custom XP rate
+	m_customExpRate = 1;
+
     // Ours
     m_NeedToSaveGlyphs = false;
     m_comboPointGain = 0;
@@ -6956,6 +6959,10 @@ void Player::CheckAreaExploreAndOutdoor()
                 {
                     XP = uint32(sObjectMgr->GetBaseXP(areaEntry->area_level)*sWorld->getRate(RATE_XP_EXPLORE));
                 }
+
+				// Modify experience based on player's custom rate
+				if (sWorld->getBoolConfig(CONFIG_CUSTOM_XP_RATE))
+					XP *= GetCustomXPRate();
 
                 GiveXP(XP, NULL);
                 SendExplorationExperience(area, XP);
@@ -15790,8 +15797,16 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
     bool rewarded = IsQuestRewarded(quest_id) && !quest->IsDFQuest();
 
     // Not give XP in case already completed once repeatable quest
-    uint32 XP = rewarded ? 0 : uint32(quest->XPValue(this)*sWorld->getRate(RATE_XP_QUEST));
+	uint32 XP = 0;
 
+	// Allow for custom exp rate
+	if (!rewarded)
+	{
+		if (sWorld->getBoolConfig(CONFIG_CUSTOM_XP_RATE))
+			XP = uint32(quest->XPValue(this) * sWorld->getRate(RATE_XP_QUEST) * GetCustomXPRate());
+		else
+			XP = uint32(quest->XPValue(this)*sWorld->getRate(RATE_XP_QUEST));
+	}
     // handle SPELL_AURA_MOD_XP_QUEST_PCT auras
     Unit::AuraEffectList const& ModXPPctAuras = GetAuraEffectsByType(SPELL_AURA_MOD_XP_QUEST_PCT);
     for (Unit::AuraEffectList::const_iterator i = ModXPPctAuras.begin(); i != ModXPPctAuras.end(); ++i)

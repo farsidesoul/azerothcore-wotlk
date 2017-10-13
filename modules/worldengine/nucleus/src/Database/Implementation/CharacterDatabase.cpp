@@ -556,4 +556,10 @@ void CharacterDatabaseConnection::DoPrepareStatements()
 
     // Deserter tracker
     PrepareStatement(CHAR_INS_DESERTER_TRACK, "INSERT INTO battleground_deserters (guid, type, datetime) VALUES (?, ?, NOW())", CONNECTION_ASYNC);
+
+	// Custom Exp rate
+	PrepareStatement(CHAR_INS_CUSTOM_XP_RATE, "INSERT INTO character_xp_rate (guid, xp_rate) VALUES (?, ?)", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_DEL_CUSTOM_XP_RATE, "DELETE FROM character_xp_rate WHERE guid = ?", CONNECTION_ASYNC);
+	PrepareStatement(CHAR_SEL_CUSTOM_XP_RATE, "SELECT xp_rate FROM character_xp_rate WHERE guid = ?", CONNECTION_SYNCH);
+	PrepareStatement(CHAR_UPD_CUSTOM_XP_RATE, "UPDATE character_xp_rate SET xp_rate = ? WHERE guid = ?", CONNECTION_ASYNC);
 }

@@ -2325,9 +2325,9 @@ Rate.InstanceResetTime = 1
 #                     1 - (SkillGain.Gathering)
 #                     1 - (SkillGain.Weapon)
 
-SkillGain.Crafting  = 1
+SkillGain.Crafting  = 2
 SkillGain.Defense   = 1
-SkillGain.Gathering = 1
+SkillGain.Gathering = 2
 SkillGain.Weapon    = 1
 
 #
@@ -2342,9 +2342,9 @@ SkillGain.Weapon    = 1
 #                     0   - (SkillChance.Grey)
 
 SkillChance.Orange = 100
-SkillChance.Yellow = 75
-SkillChance.Green  = 25
-SkillChance.Grey   = 0
+SkillChance.Yellow = 100
+SkillChance.Green  = 100
+SkillChance.Grey   = 100
 
 #
 #    SkillChance.MiningSteps
@@ -3026,6 +3026,69 @@ PlayerDump.DisallowPaths = 1
 #        Default:     1
 
 PlayerDump.DisallowOverwrite = 1
+
+#
+###################################################################################################
+#
+###################################################################################################
+
+###################################################################################################
+# CUSTOM PLAYER XP / LOOT RATES
+#
+#    CustomRates.Exp.Enabled
+#    CustomRates.Loot.Enabled
+#        Description: Toggle functionality of the exp / loot customisation.
+#                     use .rate exp 1 / .rate exp 0
+#                     use .rate loot 1 / .rate loot 0
+#        Values     : 0 (Disabled -- custom rates will not be applicable)
+#                     1 (Enabled -- custom rates will be applicable)
+#        Default    : 0 (Disabled by default)
+#        Remarks    : Can be configured in game this way.
+#
+
+CustomRates.Exp.Enabled = 1
+CustomRates.Loot.Enabled = 0
+
+#    CustomRates.Exp.Security
+#    CustomRates.Loot.Security
+#        Description: Minimum security an account must have in order to
+#                     use .rate xp / .rate loot command
+#        Values     : 0 (player account)
+#                     1 (moderator account)
+#                     2 (gamemaster account)
+#                     3 (administrator account)
+#        Default    : 0 (every player can use the commands)
+#        Remarks    : Higher security accounts may set xp/loot rate to
+#                     lower security level accounts.
+#
+
+CustomRates.Exp.Security = 0
+CustomRates.Loot.Security = 0
+
+#    CustomRates.Exp.MaxRate
+#    CustomRates.Loot.MaxRate
+#        Description: Maximum individual XP / loot rate
+#        Values     : n (integer, may set xp / loot rate in range [1,n]
+#        Default    : 10
+#
+
+
+CustomRates.Exp.MaxRate = 6
+CustomRates.Exp.DefaultRate = 6
+CustomRates.MaximumLootRate = 1
+
+Player.DefaultGuildID = 15
+
+#    CustomRates.ShowXpRateOnLogin
+#    CustomRates.ShowLootRateOnLogin
+#        Description: Shows current XP / loot rate to player on login
+#        Values     : 0 - don't show
+#                   : 1 - show
+#        Default    : 1
+#
+
+CustomRates.ShowXpRateOnLogin = 1
+CustomRates.ShowLootRateOnLogin = 0
 
 #
 ###################################################################################################
